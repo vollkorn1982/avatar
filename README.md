@@ -18,12 +18,12 @@ How to use
 ----------
 
 * direct your browser to your servers root url to upload an avatar
-* to retrieve a picture go to your provided email's md5 sum like this: http://<yourserver>/<md5 in hex>.png
+* to retrieve a picture go to your provided email's md5 sum like this: http://&lt;yourserver&gt;/&lt;md5 in hex&gt;.png
 
 How to incorporate in github enterprise
 ---------------------------------------
 
-Edit the file gitlab.yml and replace the gravatar URL with http://<yourserver>/
+Edit the file gitlab.yml and replace the gravatar URL with http://&lt;yourserver&gt;/
 
 ToDo
 ----
