@@ -21,6 +21,9 @@ Avatar comes with an upstart script to start and control it like a system servic
 
 * edit the paths in avatar.conf
 * copy avatar.conf to /etc/init/
+* create user/group avatar
+* "sudo mkdir /opt/avatar/pics"
+* "sudo chown avatar.avatar /opt/avatar/pics"
 * "sudo service avatar start" and "sudo service avatar stop"
 
 How to use
