@@ -14,6 +14,15 @@ Install and setup
 * edit webserver.py and put this folder's name in avatar_folder at the top
 * run the program: python webserver.py
 
+Install as a daemon
+-------------------
+
+Avatar comes with an upstart script to start and control it like a system service.
+
+* edit the paths in avatar.conf
+* copy avatar.conf to /etc/init/
+* "sudo service avatar start" and "sudo service avatar stop"
+
 How to use
 ----------
 
