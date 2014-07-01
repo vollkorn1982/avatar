@@ -10,7 +10,6 @@ class MyHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            print self.path
             if self.path == "/":
                 f = open(curdir + sep + "index.html")
 
@@ -29,7 +28,7 @@ class MyHandler(BaseHTTPRequestHandler):
                     self.wfile.write("<HTML>Invalid avatar hash string. Hash string needs to be exactly 32 characters long.<BR><BR>");
                     return
                     
-                if all(c in string.hexdigits for c in filename):
+                if not all(c in string.hexdigits for c in filename):
                     self.wfile.write("<HTML>Invalid avatar hash string. Only hexadecimal characters accepted.<BR><BR>");
                     return
                     
