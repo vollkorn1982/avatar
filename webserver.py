@@ -21,15 +21,15 @@ class MyHandler(BaseHTTPRequestHandler):
                 f.close()
                 return
 
-            if not ".." in self.path:
-                url_elements = self.path.split(".");
-                if not len(url_elements) == 2:
-                    self.wfile.write("<HTML>Only files of type PNG provided. Add \".png\" to the URL.<BR><BR>");
+            if self.path.startswith("/avatar"):
+                filename = self.path.split("/")[-1]
+            
+                if not len(filename) == 32 + 1:
+                    self.wfile.write("<HTML>Invalid avatar hash string. Hash string needs to be exactly 32 characters long.<BR><BR>");
                     return
                     
-                [filename, type] = url_elements
-                if not "png" in type:
-                    self.wfile.write("<HTML>Only files of type PNG provided. Add \".png\" to the URL.<BR><BR>");
+                if all(c in string.hexdigits for c in filename):
+                    self.wfile.write("<HTML>Invalid avatar hash string. Only hexadecimal characters accepted.<BR><BR>");
                     return
                     
                 f = open(curdir + sep + avatar_folder + sep + filename)
@@ -71,7 +71,7 @@ class MyHandler(BaseHTTPRequestHandler):
         f.write(upfile)
         f.close()
         print "Avatar uploaded for", address, address_hash
-        avatar_url = "/" + address_hash + ".png"
+        avatar_url = "/avatar/" + address_hash
         self.wfile.write("<HTML>Avatar updated and can be retrieved <a href=\"" + avatar_url + "\">here.</a><BR><BR>");
 
 def main():
