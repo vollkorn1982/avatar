@@ -22,9 +22,10 @@ class MyHandler(BaseHTTPRequestHandler):
                 return
 
             if self.path.startswith("/avatar"):
-                filename = self.path.split("/")[-1]
+                filename = self.path.split("?")[0]
+                filename = filename.split("/")[-1]
             
-                if not len(filename) == 32 + 1:
+                if not len(filename) == 32:
                     self.wfile.write("<HTML>Invalid avatar hash string. Hash string needs to be exactly 32 characters long.<BR><BR>");
                     return
                     
