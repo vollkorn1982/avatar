@@ -32,7 +32,7 @@ How to use
 How to incorporate in github enterprise
 ---------------------------------------
 
-Edit the file gitlab.yml and replace the gravatar URL with http://&lt;yourserver&gt;/
+Go to the management console and enter the gravatar URL http://&lt;yourserver&gt;/
 
 ToDo
 ----
