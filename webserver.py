@@ -1,10 +1,12 @@
 import string,cgi,time
-from os import curdir, sep
+from os import curdir, sep, path
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import hashlib
 
 # put an existing folder here
 avatar_folder = "pics"
+johndoe_filename = "johndoe"
+johndoe_count = 9
 
 class MyHandler(BaseHTTPRequestHandler):
 
@@ -27,12 +29,17 @@ class MyHandler(BaseHTTPRequestHandler):
                 if not len(filename) == 32:
                     self.wfile.write("<HTML>Invalid avatar hash string. Hash string needs to be exactly 32 characters long.<BR><BR>");
                     return
-                    
+                
                 if not all(c in string.hexdigits for c in filename):
                     self.wfile.write("<HTML>Invalid avatar hash string. Only hexadecimal characters accepted.<BR><BR>");
                     return
-                    
-                f = open(curdir + sep + avatar_folder + sep + filename)
+
+                filepath = curdir + sep + avatar_folder + sep + filename
+                
+                if path.isfile(filepath):
+                    f = open(filepath)
+                else:
+                    f = open(curdir + sep + johndoe_filename + str(int(filename, 16) % johndoe_count))
 
                 self.send_response(200)
                 self.send_header('Content-type', 'image/png')
@@ -48,8 +55,6 @@ class MyHandler(BaseHTTPRequestHandler):
      
 
     def do_POST(self):
-        global rootnode
-        global avatar_folder
         ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
         if ctype == 'multipart/form-data':
             query=cgi.parse_multipart(self.rfile, pdict)
