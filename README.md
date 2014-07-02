@@ -9,6 +9,7 @@ Install and setup
 -----------------
 
 * install python
+* install python-imaging
 * copy webserver.py and index.html to a folder you wish to use as webserver root
 * create a folder for the pictures to reside in
 * edit webserver.py and put this folder's name in avatar_folder at the top
