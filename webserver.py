@@ -2,6 +2,8 @@ import string,cgi,time
 from os import curdir, sep, path
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import hashlib
+import Image
+import urlparse
 
 # put an existing folder here
 avatar_folder = "pics"
@@ -36,8 +38,27 @@ class MyHandler(BaseHTTPRequestHandler):
 
                 filepath = curdir + sep + avatar_folder + sep + filename
                 
+                parsed = urlparse.urlparse(self.path)
+                if parsed.query:
+                    size = int(urlparse.parse_qs(parsed.query)['s'][0])
+                else:
+                    size = -1
+                print size
+                
                 if path.isfile(filepath):
-                    f = open(filepath)
+                
+                    if size >= 0:
+                        filepathsize = filepath + "_" + str(size)
+                        
+                        if not path.isfile(filepathsize):
+                            im = Image.open(filepath)
+                            im.thumbnail([size, size], Image.ANTIALIAS)
+                            im.save(filepathsize, "PNG")
+                            
+                        f = open(filepathsize)
+                            
+                    else:
+                        f = open(filepath)
                 else:
                     f = open(curdir + sep + johndoe_filename + str(int(filename, 16) % johndoe_count))
 
