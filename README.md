@@ -41,3 +41,8 @@ ToDo
 * Beautify the webinterface
 * Deamonize the server
 * Proper logging for the server
+
+Image Source
+------------
+
+openclipart.org Public Domain
