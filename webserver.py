@@ -22,10 +22,6 @@ class MyHandler(BaseHTTPRequestHandler):
                 f.close()
                 return
 
-        except IOError:
-            self.send_error(404,'File Not Found: %s' % self.path)
-
-        try:
             if self.path.startswith("/avatar"):
                 filename = self.path.split("?")[0]
                 filename = filename.split("/")[-1]
@@ -51,22 +47,11 @@ class MyHandler(BaseHTTPRequestHandler):
                 self.wfile.write(f.read())
                 f.close()
                 return
-                
+                                
             self.send_error(404,'File Not Found: %s' % self.path)
-                
+
         except IOError:
-            try:
-                f = open(curdir + sep + "default.png")
-
-                self.send_response(200)
-                self.send_header('Content-type', 'image/png')
-                self.end_headers()
-                self.wfile.write(f.read())
-                f.close()
-
-            except IOError:
-                self.send_error(404,'File Not Found: default.png')
-     
+            self.send_error(404,'File Not Found: %s' % self.path)
 
     def do_POST(self):
         ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
