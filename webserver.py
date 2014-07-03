@@ -6,8 +6,9 @@ import hashlib
 import Image
 import urlparse
 
-# put an existing folder here
+# configure these values
 avatar_folder = "pics"
+http_port = 8080
 johndoe_filename = "johndoe"
 johndoe_count = 9
 
@@ -108,7 +109,7 @@ class MyHandler(BaseHTTPRequestHandler):
 
 def main():
     try:
-        server = HTTPServer(('', 80), MyHandler)
+        server = HTTPServer(('', http_port), MyHandler)
         print 'started httpserver...'
         server.serve_forever()
     except KeyboardInterrupt:
