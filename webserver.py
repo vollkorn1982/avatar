@@ -1,5 +1,6 @@
-import string,cgi,time
-from os import curdir, sep, path
+import string, cgi, time
+from os import curdir, sep, path, remove
+from glob import glob
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import hashlib
 import Image
@@ -92,6 +93,12 @@ class MyHandler(BaseHTTPRequestHandler):
             return           
 
         address_hash = hashlib.md5(address).hexdigest()
+        
+        filename = curdir + sep + avatar_folder + sep + address_hash
+        
+        for f in glob (filename + "*"):
+            remove(f)
+        
         f = open(curdir + sep + avatar_folder + sep + address_hash, "w")
         f.write(upfile)
         f.close()
