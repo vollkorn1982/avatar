@@ -41,11 +41,13 @@ class MyHandler(BaseHTTPRequestHandler):
                 filepath = curdir + sep + avatar_folder + sep + filename
                 
                 parsed = urlparse.urlparse(self.path)
+
+                size = -1
                 if parsed.query:
-                    size = int(urlparse.parse_qs(parsed.query)['s'][0])
-                else:
-                    size = -1
-                print size
+                    param_s = urlparse.parse_qs(parsed.query)
+                    print "s=", param_s
+                    if 's' in param_s:
+                        size = int(param_s['s'][0])
                 
                 if path.isfile(filepath):
                 
