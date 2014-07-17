@@ -11,7 +11,7 @@ import ssl
 avatar_folder = "pics"
 http_port = 8080
 use_https = True
-https_cert = '/home/work/Projekte/avatar/server.pem'
+https_cert = '/path/to/certificate.pem'
 johndoe_filename = "johndoe"
 johndoe_count = 9
 
@@ -116,7 +116,11 @@ def main():
     try:
         server = HTTPServer(('', http_port), MyHandler)
         if use_https:
-            server.socket = ssl.wrap_socket(server.socket, certfile=https_cert, server_side=True)
+            try:
+                server.socket = ssl.wrap_socket(server.socket, certfile=https_cert, server_side=True)
+            except ssl.SSLError, err:
+                if err.args[1].find("sslv3 alert") == -1:
+                    raise
         print 'started httpserver...'
         server.serve_forever()
     except KeyboardInterrupt:
