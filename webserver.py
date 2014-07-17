@@ -5,10 +5,13 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import hashlib
 import Image
 import urlparse
+import ssl
 
 # configure these values
 avatar_folder = "pics"
 http_port = 8080
+use_https = True
+https_cert = '/home/work/Projekte/avatar/server.pem'
 johndoe_filename = "johndoe"
 johndoe_count = 9
 
@@ -112,6 +115,8 @@ class MyHandler(BaseHTTPRequestHandler):
 def main():
     try:
         server = HTTPServer(('', http_port), MyHandler)
+        if use_https:
+            server.socket = ssl.wrap_socket(server.socket, certfile=https_cert, server_side=True)
         print 'started httpserver...'
         server.serve_forever()
     except KeyboardInterrupt:
