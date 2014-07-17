@@ -10,7 +10,7 @@ import ssl
 # configure these values
 avatar_folder = "pics"
 http_port = 8080
-use_https = True
+use_https = False
 https_cert = '/path/to/certificate.pem'
 johndoe_filename = "johndoe"
 johndoe_count = 9
