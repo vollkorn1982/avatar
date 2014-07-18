@@ -3,6 +3,3 @@
 * retrieve pictures via URL with automatic resizing
 * ssl for https
 * random selection from default profile pictures for unknown users
-
-# ToDo
-* implement email verification for sign-up
