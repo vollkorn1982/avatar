@@ -43,6 +43,5 @@ ToDo
 
 * Add some authentication mechanism to restrict access to authorized users only (maybe some email verification thingy?)
 * Beautify the webinterface
-* Deamonize the server
 * Proper logging for the server
 
