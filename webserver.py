@@ -12,6 +12,8 @@ avatar_folder = "pics"
 http_port = 8080
 use_https = False
 https_cert = '/path/to/certificate.pem'
+https_key = '/path/to/key.pem'
+https_ca = '/path/to/ca-cert.pem'
 johndoe_filename = "johndoe"
 johndoe_count = 9
 
@@ -117,7 +119,7 @@ def main():
         server = HTTPServer(('', http_port), MyHandler)
         if use_https:
             try:
-                server.socket = ssl.wrap_socket(server.socket, certfile=https_cert, server_side=True)
+                server.socket = ssl.wrap_socket(server.socket, keyfile=https_key, certfile=https_cert, ca_certs=https_ca, server_side=True)
             except ssl.SSLError, err:
                 if err.args[1].find("sslv3 alert") == -1:
                     raise
