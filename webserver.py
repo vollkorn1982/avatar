@@ -2,6 +2,7 @@ import string, cgi, time
 from os import curdir, sep, path, remove
 from glob import glob
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import SocketServer
 import hashlib
 import Image
 import urlparse
@@ -114,9 +115,15 @@ class MyHandler(BaseHTTPRequestHandler):
         avatar_url = "/avatar/" + address_hash
         self.wfile.write("<HTML>Avatar updated and can be retrieved <a href=\"" + avatar_url + "\">here.</a><BR><BR>");
 
+class ForkingHTTPServer(HTTPServer, SocketServer.ForkingMixIn):
+    def finish_request(self, request, client_address):
+        request.settimeout(30.0)
+        # "super" can not be used because BaseServer is not created from object
+        HTTPServer.finish_request(self, request, client_address)
+
 def main():
     try:
-        server = HTTPServer(('', http_port), MyHandler)
+        server = ForkingHTTPServer(('', http_port), MyHandler)
         if use_https:
             try:
                 server.socket = ssl.wrap_socket(server.socket, keyfile=https_key, certfile=https_cert, ca_certs=https_ca, server_side=True)
