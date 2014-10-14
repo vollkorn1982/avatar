@@ -119,7 +119,10 @@ class ForkingHTTPServer(HTTPServer, SocketServer.ForkingMixIn):
     def finish_request(self, request, client_address):
         request.settimeout(30.0)
         # "super" can not be used because BaseServer is not created from object
-        HTTPServer.finish_request(self, request, client_address)
+	try:
+	    HTTPServer.finish_request(self, request, client_address)
+	except SSLError, err:
+            print 'SSL connection error: ' + err.expr
 
 def main():
     try:
