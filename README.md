@@ -9,10 +9,23 @@ Install and setup
 -----------------
 
 * install python
+* install python-imaging
 * copy webserver.py and index.html to a folder you wish to use as webserver root
 * create a folder for the pictures to reside in
 * edit webserver.py and put this folder's name in avatar_folder at the top
 * run the program: python webserver.py
+
+Install as a daemon
+-------------------
+
+Avatar comes with an upstart script to start and control it like a system service.
+
+* edit the paths in avatar.conf
+* copy avatar.conf to /etc/init/
+* create user/group avatar
+* "sudo mkdir /opt/avatar/pics"
+* "sudo chown avatar.avatar /opt/avatar/pics"
+* "sudo service avatar start" and "sudo service avatar stop"
 
 How to use
 ----------
@@ -23,7 +36,7 @@ How to use
 How to incorporate in github enterprise
 ---------------------------------------
 
-Edit the file gitlab.yml and replace the gravatar URL with http://&lt;yourserver&gt;/
+Go to the management console and enter the gravatar URL http://&lt;yourserver&gt;/
 
 ToDo
 ----
@@ -32,3 +45,4 @@ ToDo
 * Beautify the webinterface
 * Deamonize the server
 * Proper logging for the server
+
