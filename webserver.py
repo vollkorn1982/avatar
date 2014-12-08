@@ -121,7 +121,7 @@ class ForkingHTTPServer(HTTPServer, SocketServer.ForkingMixIn):
         # "super" can not be used because BaseServer is not created from object
 	try:
 	    HTTPServer.finish_request(self, request, client_address)
-	except SSLError, err:
+	except ssl.SSLError, err:
             print 'SSL connection error: ' + err.expr
 
 def main():
